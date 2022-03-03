@@ -1,38 +1,78 @@
 .App {
-  text-align: center;
+	text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.MainNavBar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-left: 30px;
+	margin-right: 40px;
+	margin-top: 15px;
+	padding-left: 10%;
+	padding-right: 10%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.MainNavBar__logo {
+	width: 200px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.MainNavBar__link:hover {
+	color: #e5171e;
 }
 
-.App-link {
-  color: #61dafb;
+.CategoryNavBar {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 20%;
+	padding-right: 20%;
+	color: white;
+	background-color: #e5171e;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.CategoryNavBar__link:hover {
+	color: black;
+}
+
+.Product__Grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 15px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.ProductCard__article {
+	background-color: rgb(233, 233, 233);
+	color: black;
+	border-radius: 10px;
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
+
+.ProductCard__article:hover {
+	background-color: rgb(220, 220, 220);
+	border: solid #e5171e;
+	border-width: 2px;
+}
+
+.ProductCard__article__image {
+	width: 200px;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+h2 {
+	font-size: 1.1em;
+}
+
+h3 {
+	font-size: 0.8em;
 }

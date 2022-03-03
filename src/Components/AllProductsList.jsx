@@ -1,15 +1,42 @@
+import { fetchItems } from "../api";
+import { useEffect, useState } from "react";
+import ProductCard from "./ProductCard";
+
 const AllProductsList = (currentSelectedCat) => {
-  //declare original list state - list to show
-  //state current nav item selected
+	const [itemsList, setItemsList] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 
-  // create/set state of list - all products to start with
-  //useEffect - fetch function passes the current selecte cat - to use as a filter/query
-  //set the current list, [currentselectcat]
-  return <h1>All Products</h1>;
+	useEffect(() => {
+		fetchItems().then((items) => {
+			setItemsList(items);
+			setIsLoading(false);
+		});
+	}, []);
 
-  <li>map through the list (filtered or unfiltered</li>;
-  // <ElectronicsProductList props={listToShow}/>
-  // <RelicsProductList/>
+	console.log("Here", itemsList);
+	//declare original list state - list to show
+	//state current nav item selected
+
+	// create/set state of list - all products to start with
+	//useEffect - fetch function passes the current selecte cat - to use as a filter/query
+	//set the current list, [currentselectcat]
+
+	return (
+		<>
+			{isLoading ? (
+				<p>Loading...</p>
+			) : (
+				<>
+					<h1>All Products</h1>
+					<section className="Product__Grid">
+						{itemsList.map((item) => {
+							return <ProductCard key={item.item_id} item={item} />;
+						})}
+					</section>
+				</>
+			)}
+		</>
+	);
 };
 
 export default AllProductsList;
