@@ -1,11 +1,20 @@
 import axios from "axios";
 
 const fetchApi = axios.create({
-	baseURL: "https://nc-marketplace.herokuapp.com/api",
+  baseURL: "https://nc-marketplace.herokuapp.com/api",
 });
 
-export const fetchItems = () => {
-	return fetchApi.get("/items").then(({ data: { items } }) => {
-		return items;
-	});
+export const fetchItems = (category) => {
+  let pathStr = "/items";
+  if (category) pathStr += `?category_name=${category}`;
+  return fetchApi.get(pathStr).then(({ data: { items } }) => {
+    return items;
+  });
+};
+
+export const fetchCategories = () => {
+  return fetchApi.get("/categories").then(({ data: { categories } }) => {
+    console.log(categories);
+    return categories;
+  });
 };
