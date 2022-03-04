@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
-import { fetchCategories } from "../api";
-import { useParams } from "react-router-dom";
+import { fetchCategories, postItem } from "../api";
 
 const SellItems = () => {
 	const [categories, setCategories] = useState([]);
 	const [selectedCategory, setSelectedCategory] = useState("");
+	const [itemToSell, setItemToSell] = useState({
+		item_name: "",
+		img_url: "",
+		price: 0,
+		description: "",
+		category_name: "",
+	});
+	const [finalItemObject, setFinalItemObject] = useState({});
 
 	const dropList = [" "];
-	// const { item_name } = useParams();
-	// console.log(item_name);
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		setFinalItemObject(itemToSell);
+		postItem(finalItemObject);
+	};
 
 	useEffect(() => {
 		fetchCategories().then((categories) => {
@@ -32,19 +42,60 @@ const SellItems = () => {
 						placeholder="E.g. 
           Earmuffs"
 						required
+						value={itemToSell.item_name}
+						onChange={(event) => {
+							setItemToSell({
+								...itemToSell,
+								item_name: event.target.value,
+							});
+						}}
 					/>
 				</div>
 				<div>
 					<label>Choose Item Image</label>
-					<input name="item_image" id="item_image" type="file" />
+					<input
+						name="item_image"
+						id="item_image"
+						type="text"
+						required
+						value={itemToSell.img_url}
+						onChange={(event) => {
+							setItemToSell({
+								...itemToSell,
+								img_url: event.target.value,
+							});
+						}}
+					/>
 				</div>
 				<div>
 					<label>Item Price</label>
-					<input name="item_price" id="item_price" type="number" required />
+					<input
+						name="item_price"
+						id="item_price"
+						type="number"
+						required
+						value={itemToSell.price}
+						onChange={(event) => {
+							setItemToSell({
+								...itemToSell,
+								price: event.target.value,
+							});
+						}}
+					/>
 				</div>
 				<div>
 					<label>Item Description</label>
-					<textarea name="item_description" id="item_description" />
+					<textarea
+						name="description"
+						id="description"
+						value={itemToSell.description}
+						onChange={(event) => {
+							setItemToSell({
+								...itemToSell,
+								description: event.target.value,
+							});
+						}}
+					/>
 				</div>
 				<div>
 					<label>Select Category</label>
@@ -54,7 +105,10 @@ const SellItems = () => {
 						value={selectedCategory}
 						onChange={(event) => {
 							setSelectedCategory(event.target.value);
-							console.log("event", event.target.value);
+							setItemToSell({
+								...itemToSell,
+								category_name: event.target.value,
+							});
 						}}
 					>
 						{categories.map((category) => {
@@ -66,7 +120,9 @@ const SellItems = () => {
 						})}
 					</select>
 				</div>
-				<button type="submit">Sell Item</button>
+				<button type="submit" onClick={handleSubmit}>
+					Sell Item
+				</button>
 			</form>
 		</>
 	);
