@@ -8,8 +8,11 @@ import ViewOrders from "./Components/ViewOrders";
 import SellItems from "./Components/SellItems";
 import Basket from "./Components/Basket";
 import CategoryNavBar from "./Components/CategoryNavBar";
+import { useState } from "react";
 
 function App() {
+  const [basketList, setBasketList] = useState([]);
+  console.log("top level basket:", basketList);
   return (
     <BrowserRouter>
       <div className="App">
@@ -25,7 +28,12 @@ function App() {
           <Route path="/items" element={<AllProductsList />} />
           <Route
             path="/categories/:category/items"
-            element={<AllProductsList />}
+            element={
+              <AllProductsList
+                basketList={basketList}
+                setBasketList={setBasketList}
+              />
+            }
           />
         </Routes>
       </div>
